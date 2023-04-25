@@ -27,13 +27,13 @@ int (*get_specifier(char *s))(va_list ap, params_t *params)
 	};
 	int i = 0;
 
-	while (specifiers[i].specifier)
+	while (specifiers[io].specifier)
 	{
-		if (*s == specifiers[i].specifier[0])
+		if (*s == specifiers[io].specifier[0])
 		{
-			return (specifiers[i].f);
+			return (specifiers[io].f);
 		}
-		i++;
+		io++;
 	}
 	return (NULL);
 }
@@ -64,27 +64,27 @@ int get_print_func(char *s, va_list ap, params_t *params)
 
 int get_flag(char *s, params_t *params)
 {
-	int i = 0;
+	int iq = 0;
 
 	switch (*s)
 	{
 		case '+':
-			i = params->plus_flag = 1;
+			iq = params->plus_flag = 1;
 			break;
 		case ' ':
-			i = params->space_flag = 1;
+			iq = params->space_flag = 1;
 			break;
 		case '#':
-			i = params->hashtag_flag = 1;
+			iq = params->hashtag_flag = 1;
 			break;
 		case '-':
-			i = params->minus_flag = 1;
+			iq = params->minus_flag = 1;
 			break;
 		case '0':
-			i = params->zero_flag = 1;
+			iq = params->zero_flag = 1;
 			break;
 	}
-	return (i);
+	return (iq);
 }
 
 /**
@@ -96,18 +96,18 @@ int get_flag(char *s, params_t *params)
 
 int get_modifier(char *s, params_t *params)
 {
-	int i = 0;
+	int iw = 0;
 
 	switch (*s)
 	{
 	case 'h':
-		i = params->h_modifier = 1;
+		iw = params->h_modifier = 1;
 		break;
 	case 'l':
-		i = params->l_modifier = 1;
+		iw = params->l_modifier = 1;
 		break;
 	}
-	return (i);
+	return (iw);
 }
 
 /**
@@ -120,18 +120,18 @@ int get_modifier(char *s, params_t *params)
 
 char *get_width(char *s, params_t *params, va_list ap)
 {
-	int d = 0;
+	int id = 0;
 
 	if (*s == '*')
 	{
-		d = va_arg(ap, int);
+		id = va_arg(ap, int);
 		s++;
 	}
 	else
 	{
 		while (_isdigit(*s))
-			d = d * 10 + (*s++ - '0');
+			id = id * 10 + (*s++ - '0');
 	}
-	params->width = d;
+	params->width = id;
 	return (s);
 }

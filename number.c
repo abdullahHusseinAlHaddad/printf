@@ -11,9 +11,9 @@
 
 char *convert(long int num, int base, int flags, params_t *params)
 {
-	static char *array;
+	static char *arr;
 	static char buffer[50];
-	char sign = 0;
+	char si = 0;
 	char *ptr;
 	unsigned long n = num;
 	(void)params;
@@ -21,20 +21,17 @@ char *convert(long int num, int base, int flags, params_t *params)
 	if (!(flags & CONVERT_UNSIGNED) && num < 0)
 	{
 		n = -num;
-		sign = '-';
-
+		si = '-';
 	}
-	array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
+	arr = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
 	ptr = &buffer[49];
 	*ptr = '\0';
-
 	do	{
-		*--ptr = array[n % base];
+		*--ptr = arr[n % base];
 		n /= base;
 	} while (n != 0);
-
-	if (sign)
-		*--ptr = sign;
+	if (si)
+		*--ptr = si;
 	return (ptr);
 }
 
